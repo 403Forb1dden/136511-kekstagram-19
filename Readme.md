@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Yaroslav Holoborodko](https://up.htmlacademy.ru/javascript/19/user/136511).
-* Наставник: `Неизвестно`.
+* Наставник: [Даниил Сташевский](https://htmlacademy.ru/profile/id956755).
 
 ---
 
