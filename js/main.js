@@ -127,3 +127,7 @@ var firstPicture = publishedPhotos[0];
 renderPictures();
 bigPicture.classList.remove('hidden');
 renderBigPicture(firstPicture);
+
+document.querySelector('.social__comment-count').classList.add('hidden');
+document.querySelector('.comments-loader').classList.add('hidden');
+document.body.classList.add('modal-open');
