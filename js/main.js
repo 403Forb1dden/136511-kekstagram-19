@@ -38,6 +38,8 @@ var pictureTemplate = document.querySelector('#picture')
 
 var picturesContainer = document.querySelector('.pictures');
 
+var bigPicture = document.querySelector('.big-picture');
+
 var getRandomNumber = function (min, max) {
   var rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
@@ -73,8 +75,9 @@ var getPhotoTemplate = function (count) {
   };
 };
 
+var publishedPhotos = [];
+
 var getPublishedPhotos = function () {
-  var publishedPhotos = [];
   for (var i = 0; i < PHOTO_QUANTITY; i++) {
     publishedPhotos.push(getPhotoTemplate(i));
   }
@@ -92,7 +95,6 @@ var renderPicture = function (picture) {
 };
 
 var renderPictures = function () {
-  var publishedPhotos = getPublishedPhotos();
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < publishedPhotos.length; i++) {
     fragment.appendChild(renderPicture(publishedPhotos[i]));
@@ -100,4 +102,28 @@ var renderPictures = function () {
   picturesContainer.appendChild(fragment);
 };
 
+var renderBigPicture = function (picture) {
+  var commentsList = bigPicture.querySelector('.social__comments');
+
+  var renderComment = function (comment) {
+    return ('<li class="social__comment"> <img class="social__picture" src="' + comment.avatar + '" alt="' + comment.name + '" width="35" height="35"> <p class="social__text">' + comment.message + '</p> </li>');
+  };
+
+  var renderComments = function () {
+    for (var i = 0; i < picture.comments.length; i++) {
+      commentsList.insertAdjacentHTML('beforeend', renderComment(picture.comments[i]));
+    }
+  };
+  bigPicture.querySelector('.big-picture__img img').src = picture.url;
+  bigPicture.querySelector('.likes-count').textContent = picture.likes;
+  bigPicture.querySelector('.comments-count').textContent = picture.comments.length;
+  bigPicture.querySelector('.social__caption').textContent = picture.description;
+  commentsList.innerHTML = '';
+  renderComments();
+};
+
+getPublishedPhotos();
+var firstPicture = publishedPhotos[0];
 renderPictures();
+bigPicture.classList.remove('hidden');
+renderBigPicture(firstPicture);
