@@ -246,11 +246,11 @@ inputHashtag.addEventListener('input', function () {
     inputHashtagArray.forEach(function (item) {
       if (checkSimilarElement(inputHashtagArray, item)) {
         inputHashtag.setCustomValidity('один и тот же хэш-тег не может быть использован дважды');
-      } else if (item.length < 2) {
+      } else if (item.length < 2 && item.length > 0) {
         inputHashtag.setCustomValidity('Хештег должен состоять минимум из 2-х символов');
       } else if (item.length > 20) {
         inputHashtag.setCustomValidity('максимальная длина одного хэш-тега 20 символов, включая решётку');
-      } else if (item[0] !== '#') {
+      } else if (item[0] !== '#' && item.length > 0) {
         inputHashtag.setCustomValidity('хэш-тег должен начинаться с символа # (решётка)');
       } else if (item.substr(1, item.length).includes('#')) {
         inputHashtag.setCustomValidity('символ "#" (решётка) может быть только первым по счету в хештеге');
