@@ -91,6 +91,10 @@ var renderPicture = function (picture) {
   pictureElement.querySelector('.picture__likes').textContent = picture.likes;
   pictureElement.querySelector('.picture__comments').textContent = picture.comments.length;
 
+  pictureElement.addEventListener('click', function () {
+    openPicturePopup(picture);
+  });
+
   return pictureElement;
 };
 
@@ -123,10 +127,7 @@ var renderBigPicture = function (picture) {
 };
 
 getPublishedPhotos();
-var firstPicture = publishedPhotos[0];
 renderPictures();
-// bigPicture.classList.remove('hidden');
-renderBigPicture(firstPicture);
 
 document.querySelector('.social__comment-count').classList.add('hidden');
 document.querySelector('.comments-loader').classList.add('hidden');
@@ -143,15 +144,15 @@ var effectDefaultLine = document.querySelector('.img-upload__effect-level');
 
 var closeUploadPopup = function () {
   fileUploadOverlay.classList.add('hidden');
-  document.removeEventListener('keydown', onEscapePress);
+  document.removeEventListener('keydown', onUploadEscapePress);
   fileUpload.value = null;
 };
 var openUploadPopup = function () {
   fileUploadOverlay.classList.remove('hidden');
-  document.addEventListener('keydown', onEscapePress);
+  document.addEventListener('keydown', onUploadEscapePress);
 };
 
-var onEscapePress = function (evt) {
+var onUploadEscapePress = function (evt) {
   if (evt.key === 'Escape' && !evt.target.matches('input[type="text"]') && !evt.target.matches('textarea')) {
     closeUploadPopup();
   }
@@ -246,11 +247,11 @@ inputHashtag.addEventListener('input', function () {
     inputHashtagArray.forEach(function (item) {
       if (checkSimilarElement(inputHashtagArray, item)) {
         inputHashtag.setCustomValidity('один и тот же хэш-тег не может быть использован дважды');
-      } else if (item.length < 2) {
+      } else if (item.length < 2 && item.length > 0) {
         inputHashtag.setCustomValidity('Хештег должен состоять минимум из 2-х символов');
       } else if (item.length > 20) {
         inputHashtag.setCustomValidity('максимальная длина одного хэш-тега 20 символов, включая решётку');
-      } else if (item[0] !== '#') {
+      } else if (item[0] !== '#' && item.length > 0) {
         inputHashtag.setCustomValidity('хэш-тег должен начинаться с символа # (решётка)');
       } else if (item.substr(1, item.length).includes('#')) {
         inputHashtag.setCustomValidity('символ "#" (решётка) может быть только первым по счету в хештеге');
@@ -265,4 +266,32 @@ inputHashtag.addEventListener('input', function () {
   } else {
     checkInputHashtag();
   }
+});
+
+
+var PictureCloseButton = document.querySelector('.big-picture__cancel');
+
+PictureCloseButton.addEventListener('click', function () {
+  bigPicture.classList.add('hidden');
+});
+
+var closePicturePopup = function () {
+  bigPicture.classList.add('hidden');
+  document.removeEventListener('keydown', onPictureEscapePress);
+};
+var openPicturePopup = function (picture) {
+  bigPicture.classList.remove('hidden');
+  renderBigPicture(picture);
+
+  document.addEventListener('keydown', onPictureEscapePress);
+};
+
+var onPictureEscapePress = function (evt) {
+  if (evt.key === 'Escape' && !evt.target.matches('input[type="text"]')) {
+    closePicturePopup();
+  }
+};
+
+PictureCloseButton.addEventListener('click', function () {
+  closePicturePopup();
 });
