@@ -4,12 +4,12 @@
   var fileUpload = document.querySelector('#upload-file');
   var fileUploadOverlay = document.querySelector('.img-upload__overlay');
   var fileUploadCancel = document.querySelector('#upload-cancel');
-  var effectLevelPin = document.querySelector('.effect-level__pin');
   var imageUploadPreview = document.querySelector('.img-upload__preview');
   var imageUploadEffectsFieldset = document.querySelector('.img-upload__effects');
-  var effectDefaultLine = document.querySelector('.img-upload__effect-level');
   var formPreload = document.querySelector('.img-upload__form');
   var inputHashtag = formPreload.querySelector('.text__hashtags');
+  var effectDefaultLine = document.querySelector('.img-upload__effect-level');
+
 
   var closeUploadPopup = function () {
     fileUploadOverlay.classList.add('hidden');
@@ -33,29 +33,6 @@
 
   fileUploadCancel.addEventListener('click', function () {
     closeUploadPopup();
-  });
-
-  effectLevelPin.addEventListener('mouseup', function (evt) {
-    var controlPosition = evt.target.offsetLeft;
-    var filterLineWidth = evt.target.offsetParent.offsetWidth;
-    var intensivityPercent = (controlPosition / (filterLineWidth / 100)) / 100;
-    switch (imageUploadPreview.classList[1]) {
-      case 'effects__preview--chrome':
-        imageUploadPreview.style = 'filter: grayscale(' + (1 * intensivityPercent) + ')';
-        break;
-      case 'effects__preview--sepia':
-        imageUploadPreview.style = 'filter: sepia(' + (1 * intensivityPercent) + ')';
-        break;
-      case 'effects__preview--marvin':
-        imageUploadPreview.style = 'filter: invert(' + (100 * intensivityPercent) + '%)';
-        break;
-      case 'effects__preview--phobos':
-        imageUploadPreview.style = 'filter: blur(' + (3 * intensivityPercent) + 'px)';
-        break;
-      case 'effects__preview--heat':
-        imageUploadPreview.style = 'filter: brightness(' + (2 * intensivityPercent) + 1 + ')';
-        break;
-    }
   });
 
   effectDefaultLine.classList.add('hidden');
