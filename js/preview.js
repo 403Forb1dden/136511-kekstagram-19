@@ -1,7 +1,8 @@
 'use strict';
 (function () {
+  var MAX_DISPLAYED_COMMENTS = 5;
   var bigPicture = document.querySelector('.big-picture');
-  var PictureCloseButton = document.querySelector('.big-picture__cancel');
+  var pictureCloseButton = document.querySelector('.big-picture__cancel');
 
   var renderBigPicture = function (picture) {
     var commentsList = bigPicture.querySelector('.social__comments');
@@ -11,7 +12,11 @@
     };
 
     var renderComments = function () {
-      for (var i = 0; i < picture.comments.length; i++) {
+      var maxDisplayedComments = MAX_DISPLAYED_COMMENTS;
+      if (picture.comments.length < maxDisplayedComments) {
+        maxDisplayedComments = picture.comments.length;
+      }
+      for (var i = 0; i < maxDisplayedComments; i++) {
         commentsList.insertAdjacentHTML('beforeend', renderComment(picture.comments[i]));
       }
     };
@@ -45,7 +50,7 @@
   document.querySelector('.comments-loader').classList.add('hidden');
   document.body.classList.add('modal-open');
 
-  PictureCloseButton.addEventListener('click', function () {
+  pictureCloseButton.addEventListener('click', function () {
     closePicturePopup();
   });
 
