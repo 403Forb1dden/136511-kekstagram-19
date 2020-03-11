@@ -40,7 +40,7 @@
       var controlPosition = moveEvt.target.offsetLeft;
       var filterLineWidth = moveEvt.target.offsetParent.offsetWidth;
       var intensivityPercent = (controlPosition / (filterLineWidth / 100)) / 100;
-      effectLevelInput.value = intensivityPercent * 100;
+      effectLevelInput.value = Math.round(intensivityPercent * 100);
       effectLevelDepth.style.width = intensivityPercent * 100 + '%';
       switch (imageUploadPreview.classList[1]) {
         case 'effects__preview--chrome':
