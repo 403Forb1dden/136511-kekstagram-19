@@ -33,13 +33,24 @@
 
   var URL_UPLOAD = 'https://js.dump.academy/kekstagram';
 
-  window.upload = function (data, onSuccess) {
+  window.upload = function (data, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-
     xhr.addEventListener('load', function () {
-      onSuccess(xhr.response);
+      if (xhr.status === StatusCode.OK) {
+        onSuccess(xhr.response);
+      } else {
+        onError();
+      }
     });
+    xhr.addEventListener('error', function () {
+      onError();
+    });
+    xhr.addEventListener('timeout', function () {
+      onError();
+    });
+
+    xhr.timeout = TIMEOUT_IN_MS;
 
     xhr.open('POST', URL_UPLOAD);
     xhr.send(data);
