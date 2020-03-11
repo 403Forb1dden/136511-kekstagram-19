@@ -9,7 +9,18 @@
   var formPreload = document.querySelector('.img-upload__form');
   var inputHashtag = formPreload.querySelector('.text__hashtags');
   var effectDefaultLine = document.querySelector('.img-upload__effect-level');
+  var inputTextArea = document.querySelector('.text__description');
 
+  var resetForm = function () {
+    var defaultRadio = document.querySelector('.effects__radio');
+
+    inputHashtag.value = null;
+    inputTextArea.value = null;
+    imageUploadPreview.style = 'filter: none';
+    imageUploadPreview.className = 'img-upload__preview';
+    defaultRadio.checked = true;
+    effectDefaultLine.classList.add('hidden');
+  };
 
   var closeUploadPopup = function () {
     fileUploadOverlay.classList.add('hidden');
@@ -29,6 +40,7 @@
 
   fileUpload.addEventListener('change', function () {
     openUploadPopup();
+    resetForm();
   });
 
   fileUploadCancel.addEventListener('click', function () {
@@ -109,5 +121,58 @@
     } else {
       checkInputHashtag();
     }
+  });
+
+  var showSuccessMessage = function () {
+    var mainElement = document.querySelector('main');
+    var successMessageTemplate = document.querySelector('#success')
+      .content
+      .querySelector('.success');
+    var successMessageElement = successMessageTemplate.cloneNode(true);
+
+    mainElement.insertAdjacentElement('afterbegin', successMessageElement);
+
+    window.addEventListener('click', function (evt) {
+      if (!(evt.target === document.querySelector('.success__inner')) && !(evt.target === document.querySelector('.success__title'))) {
+        successMessageElement.remove();
+      }
+    });
+    window.addEventListener('keydown', function (evt) {
+      if (evt.key === 'Escape') {
+        successMessageElement.remove();
+      }
+    });
+  };
+
+  var showErrorMessage = function () {
+    var mainElement = document.querySelector('main');
+    var errorMessageTemplate = document.querySelector('#error')
+      .content
+      .querySelector('.error');
+    var errorMessageElement = errorMessageTemplate.cloneNode(true);
+
+    mainElement.insertAdjacentElement('afterbegin', errorMessageElement);
+
+    window.addEventListener('click', function (evt) {
+      if (!(evt.target === document.querySelector('.error__inner')) && !(evt.target === document.querySelector('.error__title'))) {
+        errorMessageElement.remove();
+      }
+    });
+    window.addEventListener('keydown', function (evt) {
+      if (evt.key === 'Escape') {
+        errorMessageElement.remove();
+      }
+    });
+  };
+
+  formPreload.addEventListener('submit', function (evt) {
+    window.upload(new FormData(formPreload), function () {
+      fileUploadOverlay.classList.add('hidden');
+      showSuccessMessage();
+    }, function () {
+      fileUploadOverlay.classList.add('hidden');
+      showErrorMessage();
+    });
+    evt.preventDefault();
   });
 })();
