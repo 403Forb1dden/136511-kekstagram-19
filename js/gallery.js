@@ -3,13 +3,26 @@
 (function () {
 
   var picturesContainer = document.querySelector('.pictures');
+  var elementFilters = document.querySelector('.img-filters');
 
-  var onSuccess = function (publishedPhotos) {
+  var renderPictures = function (array) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < publishedPhotos.length; i++) {
-      fragment.appendChild(window.picture.renderPicture(publishedPhotos[i]));
+    for (var i = 0; i < array.length; i++) {
+      fragment.appendChild(window.picture.renderPicture(array[i]));
     }
     picturesContainer.appendChild(fragment);
+  };
+
+  var showImgFilters = function () {
+    elementFilters.classList.remove('img-filters--inactive');
+  };
+
+  var defaultSortedPhotos = [];
+
+  var onSuccess = function (data) {
+    defaultSortedPhotos = data;
+    renderPictures(defaultSortedPhotos);
+    showImgFilters();
   };
 
   var onError = function (errorMessage) {
@@ -24,9 +37,10 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  var renderPictures = function () {
-    window.load(onSuccess, onError);
-  };
+  window.load(onSuccess, onError);
 
-  renderPictures();
+  window.gallery = {
+    defaultSortedPhotos: defaultSortedPhotos,
+    renderPictures: renderPictures
+  };
 })();
