@@ -6,6 +6,9 @@
   var elementFilters = document.querySelector('.img-filters');
 
   var renderPictures = function (array) {
+    while (picturesContainer.contains(picturesContainer.querySelector('.picture'))) {
+      picturesContainer.removeChild(picturesContainer.querySelector('.picture'));
+    }
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < array.length; i++) {
       fragment.appendChild(window.picture.renderPicture(array[i]));
@@ -17,11 +20,11 @@
     elementFilters.classList.remove('img-filters--inactive');
   };
 
-  var defaultSortedPhotos = [];
+  window.defaultSortedPhotos = [];
 
   var onSuccess = function (data) {
-    defaultSortedPhotos = data;
-    renderPictures(defaultSortedPhotos);
+    window.defaultSortedPhotos = data;
+    renderPictures(window.defaultSortedPhotos);
     showImgFilters();
   };
 
@@ -40,7 +43,6 @@
   window.load(onSuccess, onError);
 
   window.gallery = {
-    defaultSortedPhotos: defaultSortedPhotos,
     renderPictures: renderPictures
   };
 })();

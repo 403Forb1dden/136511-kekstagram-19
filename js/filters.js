@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  // var filterDefaultButton = document.querySelector('#filter-default');
+  var filterDefaultButton = document.querySelector('#filter-default');
   var filterRandomButton = document.querySelector('#filter-random');
   var filterDiscussedButton = document.querySelector('#filter-discussed');
 
@@ -23,12 +23,18 @@
     });
   };
 
+  filterDefaultButton.addEventListener('click', function () {
+    window.gallery.renderPictures(window.defaultSortedPhotos);
+  });
+
   filterRandomButton.addEventListener('click', function () {
-    sortPhotosByRandom(window.gallery.defaultSortedPhotos);
+    var randomSortedPhotos = window.defaultSortedPhotos.slice(0, 10);
+    sortPhotosByRandom(randomSortedPhotos);
+    window.gallery.renderPictures(randomSortedPhotos);
   });
 
   filterDiscussedButton.addEventListener('click', function () {
-    var discussedSortedPhotos = window.gallery.defaultSortedPhotos.slice();
+    var discussedSortedPhotos = window.defaultSortedPhotos.slice();
     sortPhotosByDiscussed(discussedSortedPhotos);
     window.gallery.renderPictures(discussedSortedPhotos);
   });
