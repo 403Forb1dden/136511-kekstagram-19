@@ -199,4 +199,8 @@
   inputHashtag.addEventListener('invalid', function () {
     addInputErrorEffect(inputHashtag);
   });
+
+  inputHashtag.addEventListener('change', function () {
+    removeInputErrorEffect(inputHashtag);
+  });
 })();
