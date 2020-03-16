@@ -31,6 +31,7 @@
   var openUploadPopup = function () {
     fileUploadOverlay.classList.remove('hidden');
     document.addEventListener('keydown', onUploadEscapePress);
+    removeInputErrorEffect(inputHashtag);
   };
 
   var onUploadEscapePress = function (evt) {
@@ -184,5 +185,18 @@
       showErrorMessage();
     });
     evt.preventDefault();
+  });
+
+  var addInputErrorEffect = function (field) {
+    // debugger;
+    field.style.border = '3px solid red';
+  };
+
+  var removeInputErrorEffect = function (field) {
+    field.style.border = 'none';
+  };
+
+  inputHashtag.addEventListener('invalid', function () {
+    addInputErrorEffect(inputHashtag);
   });
 })();
