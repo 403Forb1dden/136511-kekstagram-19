@@ -8,7 +8,7 @@
   var SCALE_VALUE_STEP = 25;
 
   scaleControlSmaller.addEventListener('click', function () {
-    if (parseInt(scaleControlValue.value, 10) > 25 ) {
+    if (parseInt(scaleControlValue.value, 10) > 25) {
       scaleControlValue.value = parseInt(scaleControlValue.value, 10) - SCALE_VALUE_STEP + '%';
       imageUploadPreview.style.transform = 'scale(' + parseInt(scaleControlValue.value, 10) / 100 + ')';
     }
