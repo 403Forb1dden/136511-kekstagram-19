@@ -10,6 +10,7 @@
   var inputHashtag = formPreload.querySelector('.text__hashtags');
   var effectDefaultLine = document.querySelector('.img-upload__effect-level');
   var inputTextArea = document.querySelector('.text__description');
+  var scaleControlValue = document.querySelector('.scale__control--value');
 
   var resetForm = function () {
     var defaultRadio = document.querySelector('.effects__radio');
@@ -53,6 +54,15 @@
     imageUploadPreview.className = 'img-upload__preview';
     imageUploadPreview.style = 'filter: none';
     effectDefaultLine.classList.remove('hidden');
+    imageUploadPreview.style.transform = 'scale(1)';
+    scaleControlValue.value = 100 + '%';
+    var effectLevelPin = document.querySelector('.effect-level__pin');
+    var effectDefaultLineChild = effectDefaultLine.querySelector('.effect-level__line');
+    var effectLevelDepth = effectDefaultLine.querySelector('.effect-level__depth');
+    var pinInitialPosition = effectDefaultLineChild.clientWidth - effectDefaultLineChild.clientLeft;
+    effectLevelPin.style.left = pinInitialPosition + 'px';
+    effectLevelDepth.style.width = '100%';
+
     switch (evt.target.id) {
       case 'effect-chrome':
         imageUploadPreview.classList.add('effects__preview--chrome');
