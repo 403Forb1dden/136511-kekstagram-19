@@ -6,8 +6,6 @@
   var scaleControlValue = document.querySelector('.scale__control--value');
   var imageUploadPreview = document.querySelector('.img-upload__preview');
   var SCALE_VALUE_STEP = 25;
-  // var SCALE_TRANSFORM_STEP = 0.25;
-
 
   scaleControlSmaller.addEventListener('click', function () {
     if (parseInt(scaleControlValue.value, 10) > 25 ) {
