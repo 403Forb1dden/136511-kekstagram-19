@@ -27,11 +27,13 @@
     fileUploadOverlay.classList.add('hidden');
     document.removeEventListener('keydown', onUploadEscapePress);
     fileUpload.value = null;
+    document.body.classList.remove('modal-open');
   };
   var openUploadPopup = function () {
     fileUploadOverlay.classList.remove('hidden');
     document.addEventListener('keydown', onUploadEscapePress);
     removeInputErrorEffect(inputHashtag);
+    document.body.classList.add('modal-open');
   };
 
   var onUploadEscapePress = function (evt) {
