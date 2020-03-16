@@ -4,10 +4,7 @@
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
   var fileUpload = document.querySelector('#upload-file');
-  // var fileChooser = document.querySelector('.upload input[type=file]');
-  // var preview = document.querySelector('.setup-user-pic');
   var preview = document.querySelector('.img-upload__preview img');
-
 
   fileUpload.addEventListener('change', function () {
     var file = fileUpload.files[0];

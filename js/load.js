@@ -2,10 +2,11 @@
 
 (function () {
   var URL = 'https://js.dump.academy/kekstagram/data';
+  var TIMEOUT_IN_MS = 10000;
+  var URL_UPLOAD = 'https://js.dump.academy/kekstagram';
   var StatusCode = {
     OK: 200
   };
-  var TIMEOUT_IN_MS = 10000;
 
   window.load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
@@ -31,8 +32,6 @@
     xhr.send();
   };
 
-  var URL_UPLOAD = 'https://js.dump.academy/kekstagram';
-
   window.upload = function (data, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -54,6 +53,5 @@
 
     xhr.open('POST', URL_UPLOAD);
     xhr.send(data);
-
   };
 })();

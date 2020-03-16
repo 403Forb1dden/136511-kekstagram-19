@@ -15,7 +15,6 @@
     pictureElement.addEventListener('click', function () {
       window.preview.openPicturePopup(picture);
     });
-
     return pictureElement;
   };
 

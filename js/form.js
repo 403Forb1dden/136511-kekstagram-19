@@ -15,8 +15,8 @@
   var resetForm = function () {
     var defaultRadio = document.querySelector('.effects__radio');
 
-    inputHashtag.value = null;
-    inputTextArea.value = null;
+    inputHashtag.value = '';
+    inputTextArea.value = '';
     imageUploadPreview.style = 'filter: none';
     imageUploadPreview.className = 'img-upload__preview';
     defaultRadio.checked = true;
@@ -103,11 +103,7 @@
     var checkSimilarElement = function (array, item) {
       var index = inputHashtagArray.indexOf(item);
       var restOfArray = array.slice(index + 1, array.length);
-      if (restOfArray.includes(item)) {
-        return true;
-      } else {
-        return false;
-      }
+      return restOfArray.includes(item);
     };
 
     var checkInputHashtag = function () {
