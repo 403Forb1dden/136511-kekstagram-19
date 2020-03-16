@@ -15,8 +15,8 @@
   var resetForm = function () {
     var defaultRadio = document.querySelector('.effects__radio');
 
-    inputHashtag.value = null;
-    inputTextArea.value = null;
+    inputHashtag.value = '';
+    inputTextArea.value = '';
     imageUploadPreview.style = 'filter: none';
     imageUploadPreview.className = 'img-upload__preview';
     defaultRadio.checked = true;
@@ -27,10 +27,13 @@
     fileUploadOverlay.classList.add('hidden');
     document.removeEventListener('keydown', onUploadEscapePress);
     fileUpload.value = null;
+    document.body.classList.remove('modal-open');
   };
   var openUploadPopup = function () {
     fileUploadOverlay.classList.remove('hidden');
     document.addEventListener('keydown', onUploadEscapePress);
+    removeInputErrorEffect(inputHashtag);
+    document.body.classList.add('modal-open');
   };
 
   var onUploadEscapePress = function (evt) {
@@ -91,8 +94,7 @@
   });
 
   inputHashtag.addEventListener('input', function () {
-    var inputHashtagString = inputHashtag.value.trim();
-    var inputHashtagArray = inputHashtagString.split(' ');
+    var inputHashtagArray = inputHashtag.value.trim().replace(/\s+/g, ' ').toLowerCase().split(' ');
     if (inputHashtagArray.length < 1) {
       return;
     }
@@ -101,11 +103,7 @@
     var checkSimilarElement = function (array, item) {
       var index = inputHashtagArray.indexOf(item);
       var restOfArray = array.slice(index + 1, array.length);
-      if (restOfArray.includes(item)) {
-        return true;
-      } else {
-        return false;
-      }
+      return restOfArray.includes(item);
     };
 
     var checkInputHashtag = function () {
@@ -184,5 +182,21 @@
       showErrorMessage();
     });
     evt.preventDefault();
+  });
+
+  var addInputErrorEffect = function (field) {
+    field.style.border = '3px solid red';
+  };
+
+  var removeInputErrorEffect = function (field) {
+    field.style.border = 'none';
+  };
+
+  inputHashtag.addEventListener('invalid', function () {
+    addInputErrorEffect(inputHashtag);
+  });
+
+  inputHashtag.addEventListener('change', function () {
+    removeInputErrorEffect(inputHashtag);
   });
 })();
