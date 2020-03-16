@@ -25,17 +25,26 @@
 
   filterDefaultButton.addEventListener('click', function () {
     window.gallery.renderPictures(window.defaultSortedPhotos);
+    filterDefaultButton.classList.add('img-filters__button--active');
+    filterRandomButton.classList.remove('img-filters__button--active');
+    filterDiscussedButton.classList.remove('img-filters__button--active');
   });
 
   filterRandomButton.addEventListener('click', function () {
     var randomSortedPhotos = window.defaultSortedPhotos.slice(0, 10);
     sortPhotosByRandom(randomSortedPhotos);
     window.gallery.renderPictures(randomSortedPhotos);
+    filterRandomButton.classList.add('img-filters__button--active');
+    filterDefaultButton.classList.remove('img-filters__button--active');
+    filterDiscussedButton.classList.remove('img-filters__button--active');
   });
 
   filterDiscussedButton.addEventListener('click', function () {
     var discussedSortedPhotos = window.defaultSortedPhotos.slice();
     sortPhotosByDiscussed(discussedSortedPhotos);
     window.gallery.renderPictures(discussedSortedPhotos);
+    filterDiscussedButton.classList.add('img-filters__button--active');
+    filterDefaultButton.classList.remove('img-filters__button--active');
+    filterRandomButton.classList.remove('img-filters__button--active');
   });
 })();
