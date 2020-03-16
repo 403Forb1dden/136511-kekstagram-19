@@ -94,8 +94,7 @@
   });
 
   inputHashtag.addEventListener('input', function () {
-    var inputHashtagString = inputHashtag.value.trim();
-    var inputHashtagArray = inputHashtagString.split(' ');
+    var inputHashtagArray = inputHashtag.value.trim().replace(/\s+/g, ' ').toLowerCase().split(' ');
     if (inputHashtagArray.length < 1) {
       return;
     }
@@ -190,7 +189,6 @@
   });
 
   var addInputErrorEffect = function (field) {
-    // debugger;
     field.style.border = '3px solid red';
   };
 
