@@ -150,6 +150,7 @@
         successMessageElement.remove();
       }
     });
+    fileUpload.value = '';
   };
 
   var showErrorMessage = function () {
@@ -171,6 +172,7 @@
         errorMessageElement.remove();
       }
     });
+    fileUpload.value = '';
   };
 
   formPreload.addEventListener('submit', function (evt) {
