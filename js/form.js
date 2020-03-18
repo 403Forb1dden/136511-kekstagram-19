@@ -107,6 +107,7 @@
     };
 
     var checkInputHashtag = function () {
+      inputHashtag.setCustomValidity('');
       inputHashtagArray.forEach(function (item) {
         if (checkSimilarElement(inputHashtagArray, item)) {
           inputHashtag.setCustomValidity('один и тот же хэш-тег не может быть использован дважды');
@@ -118,8 +119,6 @@
           inputHashtag.setCustomValidity('хэш-тег должен начинаться с символа # (решётка)');
         } else if (item.substr(1, item.length).includes('#')) {
           inputHashtag.setCustomValidity('символ "#" (решётка) может быть только первым по счету в хештеге');
-        } else {
-          inputHashtag.setCustomValidity('');
         }
       });
     };
