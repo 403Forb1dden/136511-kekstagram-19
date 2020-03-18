@@ -6,14 +6,14 @@
   var pictureCloseButton = document.querySelector('.big-picture__cancel');
   var socialCommentCount = document.querySelector('.social__comment-count');
 
-  var renderComment = function (comment) {
-    return ('<li class="social__comment"> <img class="social__picture" src="' + comment.avatar + '" alt="' + comment.name + '" width="35" height="35"> <p class="social__text">' + comment.message + '</p> </li>');
-  };
-
   var renderBigPicture = function (picture) {
     var commentsList = bigPicture.querySelector('.social__comments');
     var commentsLoaderButton = document.querySelector('.comments-loader');
     var showingCommentsCount;
+
+    var commentTemplate = document.querySelector('#comment')
+      .content
+      .querySelector('.social__comment');
 
     var showLoadMoreButton = function () {
       commentsLoaderButton.classList.remove('hidden');
@@ -23,10 +23,19 @@
       commentsLoaderButton.classList.add('hidden');
     };
 
+    var renderComment = function (comment) {
+      var commentElement = commentTemplate.cloneNode(true);
+      commentElement.querySelector('.social__picture').src = comment.avatar;
+      commentElement.querySelector('.social__picture').alt = comment.name;
+      commentElement.querySelector('.social__text').textContent = comment.message;
+
+      return commentElement;
+    };
+
     var renderComments = function (array) {
-      for (var i = 0; i < array.length; i++) {
-        commentsList.insertAdjacentHTML('beforeend', renderComment(array[i]));
-      }
+      array.forEach(function (item) {
+        commentsList.appendChild(renderComment(item));
+      });
       if (showingCommentsCount > picture.comments.length) {
         socialCommentCount.textContent = picture.comments.length + ' из ' + picture.comments.length + ' комментариев';
       } else {

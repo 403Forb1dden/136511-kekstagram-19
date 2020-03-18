@@ -1,6 +1,10 @@
 'use strict';
 
 (function () {
+  var SCALE_VALUE_ON_START = 100;
+  var MIN_HASHTAG_LENGTH = 2;
+  var MAX_HASHTAG_LENGTH = 20;
+  var MAX_HASHTAG_COUNT = 5;
   var fileUpload = document.querySelector('#upload-file');
   var fileUploadOverlay = document.querySelector('.img-upload__overlay');
   var fileUploadCancel = document.querySelector('#upload-cancel');
@@ -58,7 +62,7 @@
     imageUploadPreview.style = 'filter: none';
     effectDefaultLine.classList.remove('hidden');
     imageUploadPreview.style.transform = 'scale(1)';
-    scaleControlValue.value = 100 + '%';
+    scaleControlValue.value = SCALE_VALUE_ON_START + '%';
     var effectLevelPin = document.querySelector('.effect-level__pin');
     var effectDefaultLineChild = effectDefaultLine.querySelector('.effect-level__line');
     var effectLevelDepth = effectDefaultLine.querySelector('.effect-level__depth');
@@ -107,24 +111,23 @@
     };
 
     var checkInputHashtag = function () {
+      inputHashtag.setCustomValidity('');
       inputHashtagArray.forEach(function (item) {
         if (checkSimilarElement(inputHashtagArray, item)) {
           inputHashtag.setCustomValidity('один и тот же хэш-тег не может быть использован дважды');
-        } else if (item.length < 2 && item.length > 0) {
+        } else if (item.length < MIN_HASHTAG_LENGTH && item.length > 0) {
           inputHashtag.setCustomValidity('Хештег должен состоять минимум из 2-х символов');
-        } else if (item.length > 20) {
+        } else if (item.length > MAX_HASHTAG_LENGTH) {
           inputHashtag.setCustomValidity('максимальная длина одного хэш-тега 20 символов, включая решётку');
         } else if (item[0] !== '#' && item.length > 0) {
           inputHashtag.setCustomValidity('хэш-тег должен начинаться с символа # (решётка)');
         } else if (item.substr(1, item.length).includes('#')) {
           inputHashtag.setCustomValidity('символ "#" (решётка) может быть только первым по счету в хештеге');
-        } else {
-          inputHashtag.setCustomValidity('');
         }
       });
     };
 
-    if (inputHashtagArray.length > 5) {
+    if (inputHashtagArray.length > MAX_HASHTAG_COUNT) {
       inputHashtag.setCustomValidity('нельзя указать больше пяти хэш-тегов');
     } else {
       checkInputHashtag();
@@ -150,6 +153,7 @@
         successMessageElement.remove();
       }
     });
+    fileUpload.value = '';
   };
 
   var showErrorMessage = function () {
@@ -171,10 +175,11 @@
         errorMessageElement.remove();
       }
     });
+    fileUpload.value = '';
   };
 
   formPreload.addEventListener('submit', function (evt) {
-    window.upload(new FormData(formPreload), function () {
+    window.backend.upload(new FormData(formPreload), function () {
       fileUploadOverlay.classList.add('hidden');
       showSuccessMessage();
     }, function () {

@@ -10,9 +10,9 @@
       picturesContainer.removeChild(picturesContainer.querySelector('.picture'));
     }
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.length; i++) {
-      fragment.appendChild(window.picture.renderPicture(array[i]));
-    }
+    array.forEach(function (item) {
+      fragment.appendChild(window.picture.render(item));
+    });
     picturesContainer.appendChild(fragment);
   };
 
@@ -40,7 +40,7 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  window.load(onSuccess, onError);
+  window.backend.load(onSuccess, onError);
 
   window.gallery = {
     renderPictures: renderPictures

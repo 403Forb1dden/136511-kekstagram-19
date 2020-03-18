@@ -1,7 +1,13 @@
 'use strict';
 
 (function () {
-
+  var INDEX_FOR_GRAYSCALE_FILTER = 1;
+  var INDEX_FOR_SEPIA_FILTER = 1;
+  var INDEX_FOR_BLUR_FILTER = 3;
+  var INDEX_FOR_BRIGHTNESS_FILTER = 2;
+  var SECOND_INDEX_FOR_BRIGHTNESS_FILTER = 1;
+  var DIVIDER_OF_VALUE = 100;
+  var MULTIPLIER_OF_VALUE = 100;
   var imageUploadPreview = document.querySelector('.img-upload__preview');
   var effectDefaultLine = document.querySelector('.img-upload__effect-level');
   var effectLevelPin = document.querySelector('.effect-level__pin');
@@ -39,24 +45,24 @@
 
       var controlPosition = moveEvt.target.offsetLeft;
       var filterLineWidth = moveEvt.target.offsetParent.offsetWidth;
-      var intensivityPercent = (controlPosition / (filterLineWidth / 100)) / 100;
-      effectLevelInput.value = Math.round(intensivityPercent * 100);
-      effectLevelDepth.style.width = intensivityPercent * 100 + '%';
+      var intensivityPercent = (controlPosition / (filterLineWidth / DIVIDER_OF_VALUE)) / DIVIDER_OF_VALUE;
+      effectLevelInput.value = Math.round(intensivityPercent * MULTIPLIER_OF_VALUE);
+      effectLevelDepth.style.width = intensivityPercent * MULTIPLIER_OF_VALUE + '%';
       switch (imageUploadPreview.classList[1]) {
         case 'effects__preview--chrome':
-          imageUploadPreview.style = 'filter: grayscale(' + (1 * intensivityPercent) + ')';
+          imageUploadPreview.style = 'filter: grayscale(' + (INDEX_FOR_GRAYSCALE_FILTER * intensivityPercent) + ')';
           break;
         case 'effects__preview--sepia':
-          imageUploadPreview.style = 'filter: sepia(' + (1 * intensivityPercent) + ')';
+          imageUploadPreview.style = 'filter: sepia(' + (INDEX_FOR_SEPIA_FILTER * intensivityPercent) + ')';
           break;
         case 'effects__preview--marvin':
-          imageUploadPreview.style = 'filter: invert(' + (100 * intensivityPercent) + '%)';
+          imageUploadPreview.style = 'filter: invert(' + (MULTIPLIER_OF_VALUE * intensivityPercent) + '%)';
           break;
         case 'effects__preview--phobos':
-          imageUploadPreview.style = 'filter: blur(' + (3 * intensivityPercent) + 'px)';
+          imageUploadPreview.style = 'filter: blur(' + (INDEX_FOR_BLUR_FILTER * intensivityPercent) + 'px)';
           break;
         case 'effects__preview--heat':
-          imageUploadPreview.style = 'filter: brightness(' + (2 * intensivityPercent) + 1 + ')';
+          imageUploadPreview.style = 'filter: brightness(' + (INDEX_FOR_BRIGHTNESS_FILTER * intensivityPercent) + SECOND_INDEX_FOR_BRIGHTNESS_FILTER + ')';
           break;
       }
     };

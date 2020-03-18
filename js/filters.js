@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var RANDOM_PHOTOS_COUNT = 10;
   var filterDefaultButton = document.querySelector('#filter-default');
   var filterRandomButton = document.querySelector('#filter-random');
   var filterDiscussedButton = document.querySelector('#filter-discussed');
@@ -14,7 +15,7 @@
       arr[j] = arr[i];
       arr[i] = temp;
     }
-    return arr.slice(0, 10);
+    return arr.slice(0, RANDOM_PHOTOS_COUNT);
   };
 
   var sortPhotosByDiscussed = function (array) {
@@ -31,7 +32,7 @@
   }));
 
   filterRandomButton.addEventListener('click', window.debounce(function () {
-    var randomSortedPhotos = window.defaultSortedPhotos.slice(0, 10);
+    var randomSortedPhotos = window.defaultSortedPhotos.slice(0, RANDOM_PHOTOS_COUNT);
     sortPhotosByRandom(randomSortedPhotos);
     window.gallery.renderPictures(randomSortedPhotos);
     filterRandomButton.classList.add('img-filters__button--active');
