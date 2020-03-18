@@ -5,7 +5,7 @@
     .content
     .querySelector('.picture');
 
-  var renderPicture = function (picture) {
+  var render = function (picture) {
     var pictureElement = pictureTemplate.cloneNode(true);
 
     pictureElement.querySelector('.picture__img').src = picture.url;
@@ -19,6 +19,6 @@
   };
 
   window.picture = {
-    renderPicture: renderPicture
+    render: render
   };
 })();

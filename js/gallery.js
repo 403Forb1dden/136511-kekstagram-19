@@ -11,7 +11,7 @@
     }
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < array.length; i++) {
-      fragment.appendChild(window.picture.renderPicture(array[i]));
+      fragment.appendChild(window.picture.render(array[i]));
     }
     picturesContainer.appendChild(fragment);
   };
@@ -40,7 +40,7 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  window.load(onSuccess, onError);
+  window.backend.load(onSuccess, onError);
 
   window.gallery = {
     renderPictures: renderPictures

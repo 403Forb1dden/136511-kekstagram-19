@@ -175,7 +175,7 @@
   };
 
   formPreload.addEventListener('submit', function (evt) {
-    window.upload(new FormData(formPreload), function () {
+    window.backend.upload(new FormData(formPreload), function () {
       fileUploadOverlay.classList.add('hidden');
       showSuccessMessage();
     }, function () {
