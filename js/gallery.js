@@ -10,9 +10,9 @@
       picturesContainer.removeChild(picturesContainer.querySelector('.picture'));
     }
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.length; i++) {
-      fragment.appendChild(window.picture.render(array[i]));
-    }
+    array.forEach(function (item) {
+      fragment.appendChild(window.picture.render(item));
+    });
     picturesContainer.appendChild(fragment);
   };
 

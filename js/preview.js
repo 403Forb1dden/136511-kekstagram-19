@@ -33,9 +33,9 @@
     };
 
     var renderComments = function (array) {
-      for (var i = 0; i < array.length; i++) {
-        commentsList.appendChild(renderComment(array[i]));
-      }
+      array.forEach(function (item) {
+        commentsList.appendChild(renderComment(item));
+      });
       if (showingCommentsCount > picture.comments.length) {
         socialCommentCount.textContent = picture.comments.length + ' из ' + picture.comments.length + ' комментариев';
       } else {
