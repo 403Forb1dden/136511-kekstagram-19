@@ -2,6 +2,11 @@
 
 (function () {
   var SCALE_VALUE_ON_START = 100;
+  var GRAYSCALE_ON_START = 1;
+  var SEPIA_ON_START = 1;
+  var INVERT_ON_START = 100;
+  var BLUR_ON_START = 3;
+  var BRIGHTNESS_ON_START = 3;
   var MIN_HASHTAG_LENGTH = 2;
   var MAX_HASHTAG_LENGTH = 20;
   var MAX_HASHTAG_COUNT = 5;
@@ -73,23 +78,23 @@
     switch (evt.target.id) {
       case 'effect-chrome':
         imageUploadPreview.classList.add('effects__preview--chrome');
-        imageUploadPreview.style = 'filter: grayscale(1)';
+        imageUploadPreview.style = 'filter: grayscale(' + GRAYSCALE_ON_START + ')';
         break;
       case 'effect-sepia':
         imageUploadPreview.classList.add('effects__preview--sepia');
-        imageUploadPreview.style = 'filter: sepia(1)';
+        imageUploadPreview.style = 'filter: sepia(' + SEPIA_ON_START + ')';
         break;
       case 'effect-marvin':
         imageUploadPreview.classList.add('effects__preview--marvin');
-        imageUploadPreview.style = 'filter: invert(100%)';
+        imageUploadPreview.style = 'filter: invert(' + INVERT_ON_START + '%)';
         break;
       case 'effect-phobos':
         imageUploadPreview.classList.add('effects__preview--phobos');
-        imageUploadPreview.style = 'filter: blur(3px)';
+        imageUploadPreview.style = 'filter: blur(' + BLUR_ON_START + 'px)';
         break;
       case 'effect-heat':
         imageUploadPreview.classList.add('effects__preview--heat');
-        imageUploadPreview.style = 'filter: brightness(3)';
+        imageUploadPreview.style = 'filter: brightness(' + BRIGHTNESS_ON_START + ')';
         break;
       default:
         effectDefaultLine.classList.add('hidden');
@@ -116,9 +121,9 @@
         if (checkSimilarElement(inputHashtagArray, item)) {
           inputHashtag.setCustomValidity('один и тот же хэш-тег не может быть использован дважды');
         } else if (item.length < MIN_HASHTAG_LENGTH && item.length > 0) {
-          inputHashtag.setCustomValidity('Хештег должен состоять минимум из 2-х символов');
+          inputHashtag.setCustomValidity('Хештег должен состоять минимум из ' + MIN_HASHTAG_LENGTH + '-х символов');
         } else if (item.length > MAX_HASHTAG_LENGTH) {
-          inputHashtag.setCustomValidity('максимальная длина одного хэш-тега 20 символов, включая решётку');
+          inputHashtag.setCustomValidity('максимальная длина одного хэш-тега ' + MAX_HASHTAG_LENGTH + ' символов, включая решётку');
         } else if (item[0] !== '#' && item.length > 0) {
           inputHashtag.setCustomValidity('хэш-тег должен начинаться с символа # (решётка)');
         } else if (item.substr(1, item.length).includes('#')) {
@@ -128,7 +133,7 @@
     };
 
     if (inputHashtagArray.length > MAX_HASHTAG_COUNT) {
-      inputHashtag.setCustomValidity('нельзя указать больше пяти хэш-тегов');
+      inputHashtag.setCustomValidity('нельзя указать больше ' + MAX_HASHTAG_COUNT + ' хэш-тегов');
     } else {
       checkInputHashtag();
     }
