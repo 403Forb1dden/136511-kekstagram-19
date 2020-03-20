@@ -1,5 +1,4 @@
 'use strict';
-
 (function () {
   var SCALE_VALUE_ON_START = 100;
   var GRAYSCALE_ON_START = 1;
