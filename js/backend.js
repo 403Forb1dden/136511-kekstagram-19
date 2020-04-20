@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var URL = 'https://js.dump.academy/kekstagram/data';
-  var URL_UPLOAD = 'https://js.dump.academy/kekstagram';
+  var URL = 'https://javascript.pages.academy/kekstagram/data';
+  var URL_UPLOAD = 'https://javascript.pages.academy/kekstagram';
   var STATUS_OK = 200;
   var TIMEOUT_IN_MS = 10000;
 
